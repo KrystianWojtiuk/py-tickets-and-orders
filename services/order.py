@@ -10,7 +10,7 @@ def create_order(
         tickets: list[dict],
         username: str,
         date: datetime.date = None,
-) -> Order:
+) -> Order | Exception:
     try:
         with transaction.atomic():
             user, _ = User.objects.get_or_create(username=username)

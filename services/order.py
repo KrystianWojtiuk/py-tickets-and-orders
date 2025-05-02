@@ -10,7 +10,7 @@ def create_order(
         tickets: list[dict],
         username: str,
         date: datetime.date = None,
-) -> Order | None:
+) -> Order:
     try:
         with transaction.atomic():
             user, _ = User.objects.get_or_create(username=username)
@@ -43,6 +43,6 @@ def get_orders(username: str = None) -> QuerySet[Order]:
     orders = Order.objects.all()
 
     if username:
-        orders = orders.filter(user=User.objects.get(username=username))
+        orders = orders.filter(user__username=username)
 
     return orders
